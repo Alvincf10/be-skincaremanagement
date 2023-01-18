@@ -1,0 +1,120 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-product-heading" data-cy="ProductCreateUpdateHeading">Create or edit a Product</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_productName">Product Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="productName"
+            id="field_productName"
+            data-cy="productName"
+            formControlName="productName"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_expiredProduct">Expired Product</label>
+          <div class="input-group">
+            <input
+              id="field_expiredProduct"
+              data-cy="expiredProduct"
+              type="text"
+              class="form-control"
+              name="expiredProduct"
+              ngbDatepicker
+              #expiredProductDp="ngbDatepicker"
+              formControlName="expiredProduct"
+            />
+            <button type="button" class="btn btn-secondary" (click)="expiredProductDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_createdAt">Created At</label>
+          <div class="input-group">
+            <input
+              id="field_createdAt"
+              data-cy="createdAt"
+              type="text"
+              class="form-control"
+              name="createdAt"
+              ngbDatepicker
+              #createdAtDp="ngbDatepicker"
+              formControlName="createdAt"
+            />
+            <button type="button" class="btn btn-secondary" (click)="createdAtDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_stock">Stock</label>
+          <select class="form-control" id="field_stock" data-cy="stock" name="stock" formControlName="stock" [compareWith]="compareStock">
+            <option [ngValue]="null"></option>
+            <option [ngValue]="stockOption" *ngFor="let stockOption of stocksSharedCollection">{{ stockOption.id }}</option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_category">Category</label>
+          <select
+            class="form-control"
+            id="field_category"
+            data-cy="category"
+            name="category"
+            formControlName="category"
+            [compareWith]="compareCategory"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="categoryOption" *ngFor="let categoryOption of categoriesSharedCollection">{{ categoryOption.id }}</option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_ingridient">Ingridient</label>
+          <select
+            class="form-control"
+            id="field_ingridient"
+            data-cy="ingridient"
+            name="ingridient"
+            formControlName="ingridient"
+            [compareWith]="compareIngridient"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="ingridientOption" *ngFor="let ingridientOption of ingridientsSharedCollection">
+              {{ ingridientOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,58 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="product">
+      <h2 data-cy="productDetailsHeading"><span>Product</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ product.id }}</span>
+        </dd>
+        <dt><span>Product Name</span></dt>
+        <dd>
+          <span>{{ product.productName }}</span>
+        </dd>
+        <dt><span>Expired Product</span></dt>
+        <dd>
+          <span>{{ product.expiredProduct | formatMediumDate }}</span>
+        </dd>
+        <dt><span>Created At</span></dt>
+        <dd>
+          <span>{{ product.createdAt | formatMediumDate }}</span>
+        </dd>
+        <dt><span>Stock</span></dt>
+        <dd>
+          <div *ngIf="product.stock">
+            <a [routerLink]="['/stock', product.stock.id, 'view']">{{ product.stock.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Category</span></dt>
+        <dd>
+          <div *ngIf="product.category">
+            <a [routerLink]="['/category', product.category.id, 'view']">{{ product.category.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Ingridient</span></dt>
+        <dd>
+          <div *ngIf="product.ingridient">
+            <a [routerLink]="['/ingridient', product.ingridient.id, 'view']">{{ product.ingridient.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/product', product.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>
